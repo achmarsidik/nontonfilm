@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading... - NamaWebsite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-play-circle"></i>
+                NamaWebsite
+            </a>
+            <div class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="index.html#movies">Movies</a>
+                <a href="index.html#series">Series</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Movie Detail -->
+    <div class="movie-detail-page">
+        <div class="movie-backdrop" id="movieBackdrop"></div>
+        
+        <div class="container">
+            <div class="movie-detail-content">
+                <!-- Info Section -->
+                <div class="movie-info-section">
+                    <div class="movie-poster-large">
+                        <img id="moviePoster" src="" alt="">
+                    </div>
+                    <div class="movie-info-text">
+                        <h1 id="movieTitle">Loading...</h1>
+                        <p class="alt-title" id="movieAltTitle"></p>
+                        
+                        <div class="movie-meta">
+                            <span><i class="fas fa-calendar"></i> <span id="movieYear"></span></span>
+                            <span><i class="fas fa-clock"></i> <span id="movieDuration"></span></span>
+                            <span><i class="fas fa-star"></i> <span id="movieRating"></span></span>
+                        </div>
+                        
+                        <div class="movie-genres" id="movieGenres"></div>
+                        
+                        <p class="movie-description" id="movieDesc"></p>
+                        
+                        <div class="movie-status">
+                            <span class="status-badge" id="movieStatus"></span>
+                            <span class="type-badge" id="movieType"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Player Section -->
+                <div class="video-section">
+                    <h2><i class="fas fa-play"></i> Tonton Sekarang</h2>
+                    
+                    <!-- Server Selection -->
+                    <div class="server-selection">
+                        <span>Pilih Server:</span>
+                        <div class="server-buttons" id="serverButtons">
+                            <!-- Server buttons akan dimuat via JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Video Player -->
+                    <div class="video-player">
+                        <iframe id="videoPlayer" 
+                                src="" 
+                                frameborder="0" 
+                                allowfullscreen
+                                allow="autoplay; encrypted-media">
+                        </iframe>
+                    </div>
+                    
+                    <!-- Player Notice -->
+                    <div class="player-notice">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Jika video tidak bisa diputar, silakan pilih server lain.</p>
+                    </div>
+                </div>
+
+                <!-- Download Section -->
+                <div class="download-section">
+                    <h2><i class="fas fa-download"></i> Download</h2>
+                    <div class="download-list" id="downloadList">
+                        <!-- Download links akan dimuat via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 NamaWebsite. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Load movie detail saat halaman dibuka
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieId = urlParams.get('id');
+            
+            if (movieId) {
+                loadMovieDetail(movieId);
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

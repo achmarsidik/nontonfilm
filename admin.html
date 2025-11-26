@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - NamaWebsite</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-play-circle"></i>
+                Admin Panel
+            </a>
+            <div class="nav-menu">
+                <a href="index.html">Lihat Website</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <div class="container">
+            <!-- Tab Navigation -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="add-movie">
+                    <i class="fas fa-plus"></i> Tambah Film
+                </button>
+                <button class="tab-btn" data-tab="upload-video">
+                    <i class="fas fa-upload"></i> Upload Video
+                </button>
+                <button class="tab-btn" data-tab="manage-movies">
+                    <i class="fas fa-list"></i> Kelola Film
+                </button>
+                <button class="tab-btn" data-tab="add-source">
+                    <i class="fas fa-link"></i> Tambah Source
+                </button>
+            </div>
+
+            <!-- Tab: Tambah Film -->
+            <div class="tab-content active" id="add-movie">
+                <h2>Tambah Film Baru</h2>
+                <form id="addMovieForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Judul Film *</label>
+                            <input type="text" name="title" required placeholder="Judul utama film">
+                        </div>
+                        <div class="form-group">
+                            <label>Judul Alternatif</label>
+                            <input type="text" name="alternative_title" placeholder="Judul bahasa lain">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="description" rows="4" placeholder="Sinopsis film"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>URL Poster *</label>
+                            <input type="url" name="poster" required placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>URL Backdrop</label>
+                            <input type="url" name="backdrop" placeholder="https://...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tahun</label>
+                            <input type="text" name="year" placeholder="2024">
+                        </div>
+                        <div class="form-group">
+                            <label>Durasi</label>
+                            <input type="text" name="duration" placeholder="120 menit">
+                        </div>
+                        <div class="form-group">
+                            <label>Rating</label>
+                            <input type="text" name="rating" placeholder="8.5">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Genre (pisahkan dengan koma)</label>
+                            <input type="text" name="genres" placeholder="Action, Adventure, Fantasy">
+                        </div>
+                        <div class="form-group">
+                            <label>Tipe</label>
+                            <select name="type">
+                                <option value="movie">Movie</option>
+                                <option value="series">Series</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status">
+                                <option value="completed">Completed</option>
+                                <option value="ongoing">Ongoing</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-save"></i> Simpan Film
+                    </button>
+                </form>
+            </div>
+
+            <!-- Tab: Upload Video -->
+            <div class="tab-content" id="upload-video">
+                <h2>Upload Video ke Server</h2>
+                <form id="uploadVideoForm" class="admin-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Pilih Film</label>
+                        <select name="movie_id" id="movieSelect" required>
+                            <option value="">-- Pilih Film --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Provider Upload</label>
+                        <select name="provider" id="providerSelect">
+                            <option value="doodstream">Doodstream</option>
+                            <option value="streamtape">Streamtape</option>
+                            <option value="gdrive">Google Drive</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Kualitas Video</label>
+                        <select name="quality">
+                            <option value="360p">360p</option>
+                            <option value="480p">480p</option>
+                            <option value="720p" selected>720p</option>
+                            <option value="1080p">1080p</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>File Video</label>
+                        <div class="file-upload">
+                            <input type="file" name="video" id="videoFile" accept="video/*">
+                            <div class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Klik atau drag file video ke sini</p>
+                                <span>MP4, MKV, AVI (Max 2GB)</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-progress" id="uploadProgress" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p id="progressText">Uploading... 0%</p>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-upload"></i> Upload Video
+                    </button>
+                </form>
+                
+                <div class="divider">atau</div>
+                
+                <form id="uploadUrlForm" class="admin-form">
+                    <h3>Upload dari URL</h3>
+                    <div class="form-group">
+                        <label>Pilih Film</label>
+                        <select name="movie_id" required>
+                            <option value="">-- Pilih Film --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>URL Video</label>
+                        <input type="url" name="url" placeholder="https://example.com/video.mp4" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Provider</label>
+                        <select name="provider">
+                            <option value="doodstream">Doodstream</option>
+                            <option value="streamtape">Streamtape</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-link"></i> Upload dari URL
+                    </button>
+                </form>
+            </div>
+
+            <!-- Tab: Kelola Film -->
+            <div class="tab-content" id="manage-movies">
+                <h2>Daftar Film</h2>
+                <div class="movies-table-container">
+                    <table class="movies-table" id="moviesTable">
+                        <thead>
+                            <tr>
+                                <th>Poster</th>
+                                <th>Judul</th>
+                                <th>Tipe</th>
+                                <th>Status</th>
+                                <th>Sources</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan dimuat via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tab: Tambah Source Manual -->
+            <div class="tab-content" id="add-source">
+                <h2>Tambah Source Manual</h2>
+                <p class="info-text">Gunakan ini jika Anda sudah punya embed link dari provider.</p>
+                
+                <form id="addSourceForm" class="admin-form">
+                    <div class="form-group">
+                        <label>Pilih Film</label>
+                        <select name="movie_id" required>
+                            <option value="">-- Pilih Film --</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Provider</label>
+                        <select name="provider">
+                            <option value="doodstream">Doodstream</option>
+                            <option value="streamtape">Streamtape</option>
+                            <option value="gdrive">Google Drive</option>
+                            <option value="mega">Mega</option>
+                            <option value="fembed">Fembed</option>
+                            <option value="other">Lainnya</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Embed URL *</label>
+                        <input type="url" name="embed_url" required placeholder="https://dood.so/e/xxxxx">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Download URL</label>
+                        <input type="url" name="download_url" placeholder="https://dood.so/d/xxxxx">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Kualitas</label>
+                        <select name="quality">
+                            <option value="360p">360p</option>
+                            <option value="480p">480p</option>
+                            <option value="720p" selected>720p</option>
+                            <option value="1080p">1080p</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-plus"></i> Tambah Source
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Berhasil!</span>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
