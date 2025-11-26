@@ -1,0 +1,28 @@
+{
+  "movies": [
+    {
+      "id": "mov_demo001",
+      "title": "Demo Film Pertama",
+      "alternative_title": "First Demo Movie",
+      "description": "Ini adalah film demo untuk testing website streaming Anda. Anda bisa menghapus film ini dan menambahkan film asli melalui admin panel.",
+      "poster": "https://via.placeholder.com/300x450/e50914/ffffff?text=DEMO+FILM",
+      "backdrop": "https://via.placeholder.com/1920x1080/1a1a1a/ffffff?text=BACKDROP",
+      "year": "2024",
+      "duration": "120 menit",
+      "rating": "8.5",
+      "genres": ["Action", "Adventure", "Demo"],
+      "type": "movie",
+      "status": "completed",
+      "sources": [
+        {
+          "provider": "gdrive",
+          "embed_url": "https://drive.google.com/file/d/1yK1CYRuXrPQIb3p0VVlLtZ8k-eFn7cZn/preview",
+          "download_url": "https://drive.google.com/uc?export=download&id=1yK1CYRuXrPQIb3p0VVlLtZ8k-eFn7cZn",
+          "quality": "720p"
+        }
+      ],
+      "created_at": "2024-01-01T00:00:00.000Z",
+      "updated_at": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}
